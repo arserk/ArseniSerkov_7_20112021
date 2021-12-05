@@ -22,7 +22,8 @@ app.use((req, res, next) => {
 });
 
 //routes
-app.use(express.json());
+app.use(express.json({ limit: '2MB' }));
+app.use(express.urlencoded({ limit: '2MB', extended:false }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/user', userRoutes);
 app.use('/post', postsRoutes);

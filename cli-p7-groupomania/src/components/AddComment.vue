@@ -48,15 +48,11 @@
       display: block;
     }
     input {
-      width: 100%;
+      width: 97%;
       height: 40px;
       margin: 5px;
       padding: 3px 7px;
       font-size: 17px;
-    }
-    textarea {
-      width: 100%;
-      font-size: 15px;
     }
   &__file {
   display: flex;
@@ -70,5 +66,10 @@
     height: 25px;
 }
 }
+}
+.btn {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 }
 </style>

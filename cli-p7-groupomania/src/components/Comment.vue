@@ -15,8 +15,12 @@
 
 <style lang="scss" scoped>
     .comment {
-        background: whitesmoke;
-        margin: 2px;
-        padding: 10px 20px;
-    }
+        margin: auto;
+        padding: 0 30px;
+        background-color: #fff;
+        color: #404040;
+        border: 1px solid transparent;
+        border-top: solid 1px #dddddd;
+        font-size: 17px;
+}
 </style>

@@ -3,13 +3,24 @@ const { Op } = require('sequelize');
 const fs = require('fs');
 
 exports.createPost = (req, res, next) => {
-    //const postObject = JSON.parse(req.body.post);
-    Post.create({
-        ...req.body
-        //mediaUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    })
-    .then(() => res.status(201).json({ message: 'New post created' }))
-    .catch(error => res.status(400).json({ error }));
+    const postObject = JSON.parse(req.body.post);
+    //const postObject = req.body;
+    console.log(req);
+    if (!req.file) {
+        Post.create({
+            ...postObject
+        })
+        .then(() => res.status(201).json({ message: 'New post created' }))
+        .catch(error => res.status(400).json({ error }));
+    }
+    else if (req.file) {
+        Post.create({
+            ...postObject,
+            mediaURL: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        })
+        .then(() => res.status(201).json({ message: 'New post with image created' }))
+        .catch(error => res.status(400).json({ error }));
+    }
 };
 
 exports.getOnePost = (req, res, next) => {
@@ -33,12 +44,19 @@ exports.getNextPosts = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     Post.findOne({ where: { id: req.params.id } })
     .then(post => {
-       // const filename = post.mediaUrl.split('/images/')[1];
-       // fs.unlink(`images/${filename}`, () => {
+        if (post.mediaURL) {
+        const filename = post.mediaURL.split('/images/')[1];
+        fs.unlink(`images/${filename}`, () => {
+            Post.destroy({ where:  { id: req.params.id } })
+            .then(() => res.status(200).json({ message: `Post ${req.params.id} with image deleted` }))
+            .catch(error => res.status(400).json({ error }));
+       });
+        }
+        else {
             Post.destroy({ where:  { id: req.params.id } })
             .then(() => res.status(200).json({ message: `Post ${req.params.id} deleted` }))
             .catch(error => res.status(400).json({ error }));
-       //});
+        }
     })
     .catch(error => res.status(500).json({ error }));
 };

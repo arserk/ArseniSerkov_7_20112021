@@ -1,20 +1,18 @@
 <template>
-    <form @submit="onSubmit" class="add-form" autocomplete="off">
+  <form @submit="onSubmit" class="add-form" autocomplete="off">
     <div class="form-control">
       <label>Title</label>
       <input type="text" v-model="title" name="post-title" placeholder="Title" />
     </div>
     <div class="form-control">
       <label>Your post</label>
-      <textarea v-model="text" name="post-text" rows="4">
-      </textarea>
+      <textarea v-model="text" name="post-text" rows="4"></textarea>
     </div>
     <div class="form-control form-control__file">
       <label>Put Image Here => </label>
       <input type="file" name="post-image" />
     </div>
-
-    <input type="submit" value="Save Post" class="btn btn-block" />
+    <input class="submit-btn btn" type="submit" value="Save Post" />
   </form>
 </template>
 
@@ -28,19 +26,19 @@
       }
     },
     methods: {
-      onSubmit() {
-        //e.preventDefault()
+      onSubmit(e) {
+        e.preventDefault()
 
         if(!this.text) {
           alert('Add a post, please !')
           return
         }
         const newPost = {
-          title: this.title,
-          text: this.text,
-          username: "Serk",
-          userId: 1
-        }
+            title: this.title,
+            text: this.text,
+            username: "Serk",
+            userId: 1
+            }
 
         this.$emit('add-post', newPost)
 
@@ -61,14 +59,17 @@
       display: block;
     }
     input {
-      width: 100%;
+      width: 95%;
       height: 40px;
       margin: 5px;
       padding: 3px 7px;
       font-size: 17px;
     }
     textarea {
-      width: 100%;
+      width: 95%;
+      height: 70px;
+      margin: 5px;
+      padding: 3px 7px;
       font-size: 15px;
     }
   &__file {
@@ -77,11 +78,16 @@
   justify-content: space-between;
     label {
     flex: 1;
-      }
+    }
     input {
     flex: 2;
     height: 25px;
+    }
+  }
 }
-}
+.submit-btn {
+  position: relative;
+  left: auto;
+  background-color: blue;
 }
 </style>
