@@ -65,7 +65,7 @@ exports.deleteUser = (req, res) => {
 exports.getAll = (req, res) => {
     User.findAll()
     .then(users => {
-        console.log(users);
+        //console.log(users);
         res.status(200).json({ users });
     })
     .catch(err => console.log(err))

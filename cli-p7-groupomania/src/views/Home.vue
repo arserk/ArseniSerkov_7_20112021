@@ -40,14 +40,10 @@ export default {
 
       return data
     },*/
-    addPost(post) {
-      let myFormData = {
-      post: JSON.stringify(post),
-      };
-
+    addPost(newPost) {
       let formData = new FormData();
-      for (let key in myFormData) {
-        formData.append(key, myFormData[key]);
+      for (let key in newPost) {
+        formData.append(key, newPost[key]);
       }
       axios.post('api/post', formData)
       .then((res) => {

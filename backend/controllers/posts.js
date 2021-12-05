@@ -5,7 +5,7 @@ const fs = require('fs');
 exports.createPost = (req, res, next) => {
     const postObject = JSON.parse(req.body.post);
     //const postObject = req.body;
-    console.log(req);
+    //console.log(req);
     if (!req.file) {
         Post.create({
             ...postObject
@@ -67,7 +67,7 @@ exports.updatePost = (req, res, next) => {
         ...JSON.parse(req.body.post)
         //mediaUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body.post };
-    console.log(postObject);
+    //console.log(postObject);
     let deleteMsg = '';
     if (req.file) {
         Post.findOne({ where: { id: req.params.id } })

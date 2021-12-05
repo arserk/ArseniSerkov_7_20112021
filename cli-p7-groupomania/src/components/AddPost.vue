@@ -10,7 +10,7 @@
     </div>
     <div class="form-control form-control__file">
       <label>Put Image Here => </label>
-      <input type="file" name="post-image" />
+      <input type="file" @change="handleFileUpload( $event )" name="post-image" accept="image/png,image/jpeg"/>
     </div>
     <input class="submit-btn btn" type="submit" value="Save Post" />
   </form>
@@ -22,28 +22,43 @@
     data () {
       return {
         title: '',
-        text: ''
+        text: '',
+        image: ''
       }
     },
     methods: {
       onSubmit(e) {
         e.preventDefault()
 
-        if(!this.text) {
-          alert('Add a post, please !')
+        if (!this.title) {
+          alert('You must add a title to your post')
           return
         }
-        const newPost = {
+        if(!this.text || !this.image) {
+          alert('Write a post, or add an image, please !')
+          return
+        }
+
+        const postData = {
             title: this.title,
             text: this.text,
             username: "Serk",
-            userId: 1
-            }
+            userId: 1,
+        };
+
+        let newPost = {
+          post: JSON.stringify(postData),
+          image: this.image
+        };
+        //console.log("newPost", newPost);
 
         this.$emit('add-post', newPost)
 
         this.title = '',
         this.text = ''
+      },
+      handleFileUpload(event) {
+        this.image = event.target.files[0];
       }
     }
   }

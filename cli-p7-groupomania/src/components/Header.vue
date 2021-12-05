@@ -42,10 +42,9 @@ header {
   align-items: center;
   margin-bottom: 20px;
   .image-container {
-    width: 50%;
     position: relative;
-    left: -3%;
-  }
+    left: -2%;
+   }
   img {
       object-fit: cover;
       max-width: 100%;
