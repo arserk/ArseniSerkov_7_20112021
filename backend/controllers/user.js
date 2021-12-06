@@ -31,6 +31,7 @@ exports.login = (req, res, next) => {
             res.status(200).json({
                 userId: user.id,
                 username: user.username,
+                isAdmin: user.isAdmin,
                 token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_PASS', { expiresIn: '24h' })
             });
         })
@@ -54,11 +55,13 @@ exports.changePwd = (req, res, next) => {
 
 //DELETE method
 exports.deleteUser = (req, res) => {
-    User.destroy({ where: { id: req.params.id } })
-    .then(() => {
-        res.status(200).json({ message: 'user deleted'})
+    User.findOne({ where: { id: req.params.id } })
+    .then(user => {
+        User.destroy({ where: { id: req.params.id } })
+        .then(() => res.status(200).json({ message: `user account of ${user.username} deleted`}))
+        .catch(error => res.status(400).json({ error }));
     })
-    .catch(error => res.status(400).json({ error }));
+    .catch(error => res.status(500).json({ error }));
 };
 
 //test get 

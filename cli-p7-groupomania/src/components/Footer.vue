@@ -8,6 +8,7 @@
 <style scoped>
 
 footer {
+  border-top: 1px solid black;
   margin-top: 50px;
   text-align: center;
 }

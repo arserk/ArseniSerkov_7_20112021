@@ -1,8 +1,15 @@
 <template>
   <header>
-    <router-link to='/' class="image-container">
-    <img src="@/assets/logos/icon-left-font-monochrome-black.svg" alt="icon groupomania left front black" />
-    </router-link>
+    <div class="nav">
+      <router-link to='/' class="image-container">
+        <img src="@/assets/logos/icon-left-font-monochrome-black.svg" alt="icon groupomania left front black" />
+      </router-link>
+      <div class="nav__user-controls">
+        <router-link class="router-link" to='/'>User(add name)</router-link>
+        <p>&nbsp;/&nbsp;</p>
+        <div class="logout" @click="logout" >Logout</div>
+      </div>
+    </div>
     <Button
       v-show="homePage"
       @btn-click="$emit('toggle-add-post')"
@@ -32,6 +39,13 @@ export default {
       }
     },
   },
+  methods: {
+    logout() {
+      console.log("Need to log out !");
+      this.$router.push({ name: 'Login' });
+      return;
+    }
+  }
 }
 </script>
 
@@ -41,13 +55,34 @@ header {
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
-  .image-container {
-    position: relative;
-    left: -2%;
-   }
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  &__user-controls {
+    display: flex;
+    align-items: center;
+  }
+};
+.image-container {
+  position: relative;
+  left: -2%;
+  width: 50%;
   img {
-      object-fit: cover;
-      max-width: 100%;
+    object-fit: cover;
+    width: 100%;
   }
 }
+.router-link, .logout {
+  text-decoration: none;
+  font-weight: bold;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    color: blue;
+  }
+}
+
 </style>

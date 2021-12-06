@@ -1,12 +1,13 @@
 <template>
   <div id="nav">
     <Header
+      v-if="loggedIn"
       @toggle-add-post="toggleAddPost"
       title="Groupomania"
       :showAddPost="showAddPost"
     />
     <router-view :showAddPost="showAddPost"/>
-    <Footer />
+    <Footer v-if="loggedIn"/>
   </div>
 </template>
 
@@ -23,13 +24,29 @@ export default {
   data() {
     return {
       showAddPost: false,
+      loggedIn: null,
     }
   },
   methods: {
     toggleAddPost() {
       this.showAddPost = !this.showAddPost
     },
+    checkRoute() {
+      if (this.$route.name === 'Login' || this.$route.name === 'Signup') {
+        this.loggedIn = false;
+        return;
+      }
+      this.loggedIn = true;
+    }
   },
+  created() {
+    this.checkRoute();
+  },
+  watch: {
+    $route() {
+      this.checkRoute();
+    }
+  }
 }
 
 </script>
@@ -76,10 +93,66 @@ export default {
   text-decoration: none;
   font-size: 15px;
   font-family: inherit;
+    &:active {
+      filter: invert(1);
+    }
 }
 .btn-block {
   display: block;
   width: 100%;
+}
+
+.error {
+  text-align: center;
+  color: red;
+}
+
+// Login / Signup pages styles
+.form-container {
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        height: 90vh;
+        margin: 0 auto;
+    .login-register {
+        margin-bottom: 50px;
+        font-size: small;
+        .router-link {
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+                }
+            }
+        }
+    form {
+        padding: 0 10px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        @media(min-width: 900px) {
+            padding: 0 50px;
+        }
+    }
+    h2 {
+        margin-bottom: 40px;
+        @media(min-width: 900px) {
+           font-size: 40px;
+        }
+    }
+    .inputs {
+        margin-bottom: 25px;
+        input {
+        width: 100%;
+        border: none;
+        background-color: #f2f2f2;
+        height: 25px;
+        margin: 8px;
+        }
+    }
 }
 
 </style>

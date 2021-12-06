@@ -34,7 +34,7 @@
           alert('You must add a title to your post')
           return
         }
-        if(!this.text || !this.image) {
+        if(!this.text && !this.image) {
           alert('Write a post, or add an image, please !')
           return
         }
