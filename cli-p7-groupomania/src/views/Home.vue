@@ -45,7 +45,13 @@ export default {
       for (let key in newPost) {
         formData.append(key, newPost[key]);
       }
-      axios.post('api/post', formData)
+      const token = localStorage.getItem('user-token');
+      axios.post('api/post',
+        formData, { 
+          headers: {
+            'Authorization': `Basic ${token}` 
+          }
+        })
       .then((res) => {
         alert(res.data.message);
         }

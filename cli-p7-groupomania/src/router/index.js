@@ -5,11 +5,33 @@ import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
 import UserInfo from '../views/UserInfo.vue';
 
+/*
+const ifNotAuthenticated = (to, from, next) => {
+  const token = localStorage.getItem('user-token');
+  //if (!store.getters.isAuthenticated) {
+  if (!token) {
+    next();
+    return;
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  const token = localStorage.getItem('user-token');
+  //if (store.getters.isAuthenticated) {
+  if (token) {
+    next();
+    return;
+  }
+  next('/login')
+}*/
+
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+   // beforeEnter: ifAuthenticated
   },
   {
     path: '/about',

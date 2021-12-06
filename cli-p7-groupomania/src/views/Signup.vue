@@ -60,9 +60,13 @@ export default {
                 axios.post('api/user/signup', newUser)
                 .then((res) => {
                     alert(res.data.message);
+                    this.$router.push({ name: 'Home' });
                 })
-                .catch((err) => console.log(err));
-                this.$router.push({ name: 'Home' });
+                .catch((err) => { 
+                    console.log(err);
+                    this.error = true;
+                    this.errorMsg = "Username or mail already taken"
+                });
                 return;
             }
             this.error = true;
