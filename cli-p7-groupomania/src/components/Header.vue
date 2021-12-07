@@ -5,9 +5,9 @@
         <img src="@/assets/logos/icon-left-font-monochrome-black.svg" alt="icon groupomania left front black" />
       </router-link>
       <div class="nav__user-controls">
-        <router-link class="router-link" to='/'>User(add name)</router-link>
+        <router-link class="router-link" to='/'>{{ username }}</router-link>
         <p>&nbsp;/&nbsp;</p>
-        <div class="logout" @click="logout" >Logout</div>
+        <div class="logout" @click="logout">Logout</div>
       </div>
     </div>
     <Button
@@ -30,6 +30,11 @@ export default {
   components: {
     Button,
   },
+  data() {
+    return {
+      username: JSON.parse(localStorage.getItem('userInfo')).username
+    }
+  },
   computed: {
     homePage() {
       if (this.$route.path === '/') {
@@ -37,7 +42,7 @@ export default {
       } else {
         return false
       }
-    },
+    }
   },
   methods: {
     logout() {

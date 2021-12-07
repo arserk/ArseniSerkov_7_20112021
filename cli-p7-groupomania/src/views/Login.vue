@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
     name: "Login",
@@ -38,7 +37,7 @@ export default {
                     email: this.email,
                     password: this.password
                 }
-                axios.post('api/user/login', userLogin)
+                this.$http.post('api/user/login', userLogin)
                 .then((res) => {
                     const token = res.data.token;
                     const userInfo = {
@@ -47,15 +46,15 @@ export default {
                         userId: res.data.userId,
                         isAdmin: res.data.isAdmin
                     };
-                    console.log(userInfo);
                     localStorage.setItem('user-token', token);
                     localStorage.setItem('userInfo', JSON.stringify(userInfo));
                     this.$router.push({ name: 'Home' });
                 })
                 .catch((err) => {
                     localStorage.removeItem('user-token');
+                    localStorage.removeItem('userInfo');
                     console.log(err);
-                    alert(err);
+                    alert(err.response.data.error);
                 })
             }
             else {

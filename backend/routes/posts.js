@@ -7,9 +7,9 @@ const postsCtrl = require('../controllers/posts');
 
 router.post('/', auth, multer, postsCtrl.createPost);
 router.get('/', postsCtrl.getNextPosts);
-router.get('/:id', postsCtrl.getOnePost);
-router.delete('/:id', postsCtrl.deletePost);
-router.put('/:id', multer, postsCtrl.updatePost);
+router.get('/:id', auth, postsCtrl.getOnePost);
+router.delete('/:id', auth, postsCtrl.deletePost);
+router.put('/:id', auth, multer, postsCtrl.updatePost);
 //router.post('/:id/like', postsCtrl.ratePost); //à implémenter
 
 module.exports = router;

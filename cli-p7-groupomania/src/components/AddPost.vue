@@ -42,8 +42,8 @@
         const postData = {
             title: this.title,
             text: this.text,
-            username: "Serk",
-            userId: 1,
+            username: JSON.parse(localStorage.getItem('userInfo')).username,
+            userId: JSON.parse(localStorage.getItem('userInfo')).userId,
         };
 
         let newPost = {

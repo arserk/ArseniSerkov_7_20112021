@@ -7,7 +7,6 @@
 
 <script>
 // @ is an alias to /src
-import axios from 'axios'
 import Posts from '../components/Posts'
 import AddPost from '../components/AddPost'
 
@@ -26,6 +25,7 @@ export default {
     }
   },
   methods : {
+    //example of call without axios
     /*async addPost(post) {
       //const temp = { post: JSON.stringify(post) };
       //console.log("temp =",temp);
@@ -45,13 +45,7 @@ export default {
       for (let key in newPost) {
         formData.append(key, newPost[key]);
       }
-      const token = localStorage.getItem('user-token');
-      axios.post('api/post',
-        formData, { 
-          headers: {
-            'Authorization': `Basic ${token}` 
-          }
-        })
+      this.$http.post('api/post', formData)
       .then((res) => {
         alert(res.data.message);
         }
@@ -60,18 +54,19 @@ export default {
     },
     
     async fetchPost(id) {
-      const res = await fetch(`api/post/${id}`)
-      const data = await res.json()
+      const res = await this.$http.get(`api/post/${id}`)
+      const data = await res.data;
 
       return data
     },
   },
   
   async created() {
-    axios.get('api/post')
+    this.$http.get('api/post')
     .then((res) => {
       this.posts = res.data;
     })
-  }
+    .catch((err) => console.log(err));
+  },
 }
 </script>

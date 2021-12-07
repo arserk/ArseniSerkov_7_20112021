@@ -7,17 +7,16 @@
 </template>
 
 <script>
-    import Post from '../components/Post.vue'
-    import AddComment from '../components/AddComment.vue'
-    import Comments from '../components/Comments.vue'
-    import axios from 'axios'
+import Post from '../components/Post.vue'
+import AddComment from '../components/AddComment.vue'
+import Comments from '../components/Comments.vue'
 
-    export default {
-    name: 'OnePost',
-    components: {
-        Post,
-        AddComment,
-        Comments
+export default {
+name: 'OnePost',
+components: {
+    Post,
+    AddComment,
+    Comments
     },
     data() {
         return {
@@ -26,6 +25,7 @@
         }
     },
     methods: {
+        /* //add comment without axios, example
         async addComment(comment) {
             const res = await fetch('api/comment', {
                 method: 'POST',
@@ -37,20 +37,25 @@
             const data = await res.json()
             console.log(data.message)
             location.reload()
-        },
+        },*/
         async fetchComments() {
-            const res = await fetch('api/comment')
-            const data = await res.json()
-            
-            return data
+            const res = await this.$http.get('api/comment');
+            return await res.data;
+        },
+        addComment(comment) {
+            this.$http.post('api/comment', comment)
+            .then((res) => {
+                alert(res.data.message);
+                location.reload();
+                }
+            )
+            .catch((err) => console.log(err));
         },
         async deletePost(id) {
             console.log("post to delete id=", id);
             if (confirm("Delete this post ?")) {
-                const res = await fetch(`api/post/${id}`, {
-                    method: 'DELETE',
-                })
-                const data = await res.json()
+                const res = await this.$http.delete(`api/post/${id}`)
+                const data = await res.data;
                 if (res.status === 200) {
                     alert(data.message);
                     this.$router.push({ name: 'Home' });
@@ -61,14 +66,14 @@
 
     },
     async created() {
-    axios.get(`api/post/` + this.$route.params.id)
-    .then((res) => {
-      this.post = res.data;
-    })
-    .catch((err) => err);
+        this.$http.get(`api/post/` + this.$route.params.id)
+        .then((res) => {
+        this.post = res.data;
+        })
+        .catch((err) => err);
     
-    const allComments = await this.fetchComments();
-    this.comments = allComments.filter(comment => comment.postId === this.post.id);
+        const allComments = await this.fetchComments();
+        this.comments = allComments.filter(comment => comment.postId === this.post.id);
     }
 }
 </script>

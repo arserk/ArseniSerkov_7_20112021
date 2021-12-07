@@ -65,6 +65,15 @@ exports.deleteUser = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+//find one user info
+exports.getUser = (req, res) => {
+    User.findOne({ where: { id: req.params.id } })
+    .then(user => {
+        res.status(200).json({ user });
+    })
+    .catch(err => res.status(404).json({ err }));
+};
+
 //test get 
 exports.getAll = (req, res) => {
     User.findAll()
@@ -72,5 +81,5 @@ exports.getAll = (req, res) => {
         //console.log(users);
         res.status(200).json({ users });
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
 };

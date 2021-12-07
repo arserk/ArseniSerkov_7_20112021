@@ -1,7 +1,10 @@
 <template>
 <div>
     <div class="posts" :key="post.id" v-for="post in posts">
-        <h3>{{ post.title }}</h3>
+        <div class="posts__title">
+            <h3>{{ post.title }}</h3>
+            <div class="posts__title__postedby">Posted by {{ post.username }}</div>
+        </div>
         <div class="image-crop">
             <img :src="post.mediaURL" alt="" />
         </div>
@@ -34,13 +37,16 @@ export default {
         text-align: center;
         border: solid 1px #404040;
         border-radius: 20px;
-        &__text {
-            overflow: hidden;
-        }
-        h3 {
+        &__title {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            &__postedby {
+                font-style: italic;
+            }
+        }
+        &__text {
+            overflow: hidden;
         }
     }
     .image-crop {

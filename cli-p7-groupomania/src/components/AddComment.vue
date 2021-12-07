@@ -9,6 +9,7 @@
 </template>
 
 <script>
+
   export default {
     name: 'AddComment',
     data () {
@@ -26,7 +27,7 @@
         }
         const newComment = {
           comment: this.comment,
-          userId: 1,
+          userId: JSON.parse(localStorage.getItem('userInfo')).userId,
           postId: this.$route.params.id
         }
 
