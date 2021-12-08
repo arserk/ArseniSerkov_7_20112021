@@ -29,8 +29,8 @@ export default {
     },
     methods: {
         async getUserInfo() {
-            const res = await fetch(`api/user/${this.$route.params.id}`)
-            const data = await res.json()
+            const res = await this.$http.get(`api/user/${this.$route.params.id}`)
+            const data = await res.data;
             
             return data
         },
