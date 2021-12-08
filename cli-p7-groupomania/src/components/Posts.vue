@@ -11,7 +11,7 @@
         <div class="posts__text">
             <p>{{ post.text }}</p>
         </div>
-        <router-link :to="'/post/' + post.id">See Post & comments</router-link>
+        <router-link :to="'/post/' + post.id">Click to see Post with comments</router-link>
     </div>
 </div>
 </template>

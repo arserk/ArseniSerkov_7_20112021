@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <AddPost v-show="showAddPost" @add-post="addPost"/>
+    <h1>Imageboard</h1>
     <Posts :posts="posts" />
   </div>
 </template>
@@ -25,21 +26,6 @@ export default {
     }
   },
   methods : {
-    //example of call without axios
-    /*async addPost(post) {
-      //const temp = { post: JSON.stringify(post) };
-      //console.log("temp =",temp);
-      const res = await fetch('api/post', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify(post),
-      })
-      const data = await res.json()
-
-      return data
-    },*/
     addPost(newPost) {
       let formData = new FormData();
       for (let key in newPost) {

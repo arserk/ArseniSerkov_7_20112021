@@ -48,6 +48,7 @@ export default {
                     };
                     localStorage.setItem('user-token', token);
                     localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                    this.$http.defaults.headers.common = {'Authorization':`Bearer ${token}`};
                     this.$router.push({ name: 'Home' });
                 })
                 .catch((err) => {
