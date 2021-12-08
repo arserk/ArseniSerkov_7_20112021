@@ -27,8 +27,8 @@
       }
     },
     methods: {
-      onSubmit() {
-        //e.preventDefault()
+      onSubmit(e) {
+        e.preventDefault()
 
         if (!this.title) {
           alert('You must add a title to your post')

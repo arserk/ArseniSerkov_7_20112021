@@ -3,12 +3,11 @@
       <h2>{{ userInfo.username }}'s Info</h2>
       <p>Hello {{ userInfo.fullName }} </p>
       <p>Your registered email is : {{ userInfo.email }}</p>
-      <button @click="deleteUser(null)" class="btn delete-btn">Delete Account</button>
+      <button v-show="isCreator" @click="deleteUser(userInfo.id)" class="btn delete-btn">Delete Account</button>
   </div>
 </template>
 
 <script>
-//import axios from 'axios'
 
 export default {
     name: "UserInfo",
@@ -16,6 +15,15 @@ export default {
     data() {
         return {
             userInfo: [],
+        }
+    },
+    computed: {
+        isCreator() { //verifies if the user is allowed to see parts of the page
+            if ((JSON.parse(localStorage.getItem('userInfo')).isAdmin == true) ||
+             (JSON.parse(localStorage.getItem('userInfo')).userId === this.userInfo.id)) {
+                 return true
+             }
+            else return false
         }
     },
     methods: {
@@ -27,14 +35,14 @@ export default {
         },
         async deleteUser(id) {
             console.log("user to delete id=", id);
-            if (confirm("Are you sur you want to delete your account")) {
-                const res = await fetch(`api/user/${id}`, {
-                    method: 'DELETE',
-                })
-                const data = await res.json()
+            if (confirm("Are you sur you want to delete your account ?")) {
+                const res = await this.$http.delete(`api/user/${id}`)
+                const data = await res.data;
                 if (res.status === 200) {
                     alert(data.message);
-                    this.$router.push({ name: 'Signup' });
+                    localStorage.removeItem('user-token');
+                    localStorage.removeItem('userInfo');
+                    this.$router.replace({ name: 'Signup' });
                 }
                 else alert("Could not delete account")
             }
@@ -42,6 +50,7 @@ export default {
     },
     async created() {
         this.userInfo = await this.getUserInfo();
+        //console.log();
     }
 }
 </script>

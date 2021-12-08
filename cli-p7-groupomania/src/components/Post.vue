@@ -23,7 +23,7 @@ export default {
         post: Object,
     },
     computed: {
-        isCreator() {
+        isCreator() { //verifies if the user is allowed to see parts of the page
             if ((JSON.parse(localStorage.getItem('userInfo')).isAdmin == true) ||
              (JSON.parse(localStorage.getItem('userInfo')).userId === this.post.userId)) {
                  return true

@@ -25,19 +25,6 @@ components: {
         }
     },
     methods: {
-        /* //add comment without axios, example
-        async addComment(comment) {
-            const res = await fetch('api/comment', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(comment),
-            })
-            const data = await res.json()
-            console.log(data.message)
-            location.reload()
-        },*/
         async fetchComments() {
             const res = await this.$http.get('api/comment');
             return await res.data;
