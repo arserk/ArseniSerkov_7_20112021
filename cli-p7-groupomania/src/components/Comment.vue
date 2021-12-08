@@ -19,7 +19,7 @@ export default {
     methods: {
         async getCommentUser(userId) {
             const res = await this.$http.get(`api/user/${userId}`);
-            return await res.data.user.username;
+            return await res.data.username;
         }
     },
     async mounted() {

@@ -2,9 +2,10 @@
     <div>
         <router-link class="back-arrow" to="/"> &larr; Back to Posts &larr;</router-link>
         <div class="post">
+            <p class="post__user">posted by {{ post.username }}</p>
             <h3>
                 {{ post.title }}
-                <button class="btn" @click="$emit('delete-post', post.id)">Delete Post</button>
+                <button v-show="isCreator" class="btn" @click="$emit('delete-post', post.id)">Delete Post</button>
             </h3>
             <div class="image-crop">
                 <img :src="post.mediaURL" alt="" />
@@ -20,6 +21,15 @@ export default {
     name: 'Post',
     props: {
         post: Object,
+    },
+    computed: {
+        isCreator() {
+            if ((JSON.parse(localStorage.getItem('userInfo')).isAdmin == true) ||
+             (JSON.parse(localStorage.getItem('userInfo')).userId === this.post.userId)) {
+                 return true
+             }
+            else return false
+        }
     }
 }
 </script>
@@ -41,6 +51,10 @@ export default {
         padding: 10px 20px;
         border: solid 1px black;
         border-radius: 10px;
+        &__user {
+            font-style: italic;
+            margin: 0;
+        }
         h3 {
             display: flex;
             align-items: center;

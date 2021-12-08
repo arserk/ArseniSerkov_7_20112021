@@ -27,8 +27,8 @@
       }
     },
     methods: {
-      onSubmit(e) {
-        e.preventDefault()
+      onSubmit() {
+        //e.preventDefault()
 
         if (!this.title) {
           alert('You must add a title to your post')
@@ -50,7 +50,6 @@
           post: JSON.stringify(postData),
           image: this.image
         };
-        //console.log("newPost", newPost);
 
         this.$emit('add-post', newPost)
 

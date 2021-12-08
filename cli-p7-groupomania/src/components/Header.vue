@@ -4,8 +4,8 @@
       <router-link to='/' class="image-container">
         <img src="@/assets/logos/icon-left-font-monochrome-black.svg" alt="icon groupomania left front black" />
       </router-link>
-      <div class="nav__user-controls">
-        <router-link class="router-link" to='/'>{{ username }}</router-link>
+      <div class="nav__user-controls" v-if="username">
+        <router-link class="router-link" :to="'/user/' + userId">{{ username }}</router-link>
         <p>&nbsp;/&nbsp;</p>
         <div class="logout" @click="logout">Logout</div>
       </div>
@@ -32,7 +32,8 @@ export default {
   },
   data() {
     return {
-      username: JSON.parse(localStorage.getItem('userInfo')).username
+      username: "",
+      userId: ""
     }
   },
   computed: {
@@ -46,9 +47,22 @@ export default {
   },
   methods: {
     logout() {
-      console.log("Need to log out !");
+      localStorage.removeItem('user-token');
+      localStorage.removeItem('userInfo');
       this.$router.push({ name: 'Login' });
-      return;
+    }
+  },
+  created() {
+    try {
+      const username = JSON.parse(localStorage.getItem('userInfo')).username;
+      const userId = JSON.parse(localStorage.getItem('userInfo')).userId;
+      if (username && userId) {
+        this.username = username;
+        this.userId = userId;
+      }
+    }
+    catch (error){
+      console.log(error);
     }
   }
 }

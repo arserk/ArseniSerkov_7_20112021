@@ -48,6 +48,7 @@ export default {
       this.$http.post('api/post', formData)
       .then((res) => {
         alert(res.data.message);
+        this.$router.go();
         }
       )
       .catch((err) => console.log(err));

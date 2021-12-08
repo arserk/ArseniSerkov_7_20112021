@@ -20,7 +20,7 @@ export default {
     },
     methods: {
         async getUserInfo() {
-            const res = await fetch('api/user')
+            const res = await fetch(`api/user/${this.$route.params.id}`)
             const data = await res.json()
             
             return data
@@ -40,8 +40,8 @@ export default {
             }
         },
     },
-    created() {
-        this.getUserInfo();
+    async created() {
+        this.userInfo = await this.getUserInfo();
     }
 }
 </script>

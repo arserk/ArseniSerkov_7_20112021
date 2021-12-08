@@ -63,15 +63,16 @@ components: {
                 else alert("Could not delete post")
             }
         }
-
     },
     async created() {
+        //gets correct post
         this.$http.get(`api/post/` + this.$route.params.id)
         .then((res) => {
         this.post = res.data;
         })
         .catch((err) => err);
-    
+
+        //gets comments for the corresponding post
         const allComments = await this.fetchComments();
         this.comments = allComments.filter(comment => comment.postId === this.post.id);
     }

@@ -48,13 +48,13 @@ exports.deletePost = (req, res, next) => {
         const filename = post.mediaURL.split('/images/')[1];
         fs.unlink(`images/${filename}`, () => {
             Post.destroy({ where:  { id: req.params.id } })
-            .then(() => res.status(200).json({ message: `Post ${req.params.id} with image deleted` }))
+            .then(() => res.status(200).json({ message: `Post "${post.title}" with image deleted` }))
             .catch(error => res.status(400).json({ error }));
        });
         }
         else {
             Post.destroy({ where:  { id: req.params.id } })
-            .then(() => res.status(200).json({ message: `Post ${req.params.id} deleted` }))
+            .then(() => res.status(200).json({ message: `Post "${post.title}" deleted` }))
             .catch(error => res.status(400).json({ error }));
         }
     })
