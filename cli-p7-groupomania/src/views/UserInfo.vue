@@ -1,5 +1,6 @@
 <template>
   <div>
+      <router-link class="back-arrow" to="/"> &larr; Back to Posts &larr;</router-link>
       <h2>{{ userInfo.username }}'s Info</h2>
       <p>Hello {{ userInfo.fullName }} </p>
       <p>Your registered email is : {{ userInfo.email }}</p>
@@ -59,5 +60,15 @@ export default {
     .delete-btn {
         background-color: red;
         border: 3px solid rgb(179, 0, 0);
+    }
+    .back-arrow {
+        display: flex;
+        justify-content: flex-start;
+        font-size: large;
+        margin-left: 10px;
+        &:hover {
+            transform: scale(1.1);
+            transform-origin: center left;
+        }
     }
 </style>

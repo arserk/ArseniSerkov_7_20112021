@@ -3,7 +3,7 @@
     <div class="posts" :key="post.id" v-for="post in posts">
         <div class="posts__title">
             <h3>{{ post.title }}</h3>
-            <div class="posts__title__postedby">Posted by {{ post.username }}</div>
+            <div class="posts__title__postedby">Posted by <router-link :to="'/user/' + post.userId">{{ post.username }}</router-link></div>
         </div>
         <div class="image-crop">
             <img :src="post.mediaURL" alt="" />

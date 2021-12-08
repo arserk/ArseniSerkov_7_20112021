@@ -2,7 +2,7 @@
     <div>
         <router-link class="back-arrow" to="/"> &larr; Back to Posts &larr;</router-link>
         <div class="post">
-            <p class="post__user">posted by {{ post.username }}</p>
+            <p class="post__user">posted by <router-link :to="'/user/' + post.userId">{{ post.username }}</router-link></p>
             <h3>
                 {{ post.title }}
                 <button v-show="isCreator" class="btn" @click="$emit('delete-post', post.id)">Delete Post</button>
