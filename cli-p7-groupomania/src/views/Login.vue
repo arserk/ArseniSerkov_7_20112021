@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-      <form action="" class="login">
+      <form @submit="login" class="login">
           <p class="login-register">
               No account ? =>
               <router-link class="router-link" :to="{ name:'Signup' }">Go to Signup</router-link>
@@ -14,7 +14,7 @@
                   <input type="password" placeholder="Password" v-model="password">
               </div>
           </div>
-          <input @click="login" class="login-btn btn" type="submit" value="Login" />
+          <input class="login-btn btn" type="submit" value="Login" />
       </form>
   </div>
 </template>
@@ -31,7 +31,9 @@ export default {
         }
     },
     methods: {
-        login() {
+        login(e) {
+            e.preventDefault()
+            
             if (this.email !== "" && this.password !== "") {
                 const userLogin = {
                     email: this.email,

@@ -23,7 +23,7 @@ const Comment = db.define('comment', {
         }
     }
 }, {
-    tableName: 'comments'
+    tableName: 'comments' //change if you do not want to enforce this model name
 });
 
 module.exports = Comment;

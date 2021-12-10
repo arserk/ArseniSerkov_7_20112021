@@ -31,7 +31,13 @@ export default {
       for (let key in newPost) {
         formData.append(key, newPost[key]);
       }
-      this.$http.post('api/post', formData)
+      //if glogal header connection issues in main.js, implement individual headers :
+      //const token = localStorage.getItem('user-token');
+      this.$http.post('api/post', formData, 
+      /*{ headers: { 
+      'Authorization': `Bearer ${token}` }
+      }*/
+      )
       .then((res) => {
         alert(res.data.message);
         this.$router.go();

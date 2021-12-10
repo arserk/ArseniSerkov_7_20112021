@@ -18,6 +18,7 @@ exports.getAllComments = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 
+//only gets last 5 comments, to update to find next 5
 exports.getNextComments = (req, res, next) => {
     Comment.findAll({ limit: 5, order: [['createdAt', 'DESC']]})
     .then(comments => res.status(200).json(comments))
@@ -30,6 +31,7 @@ exports.deleteComment = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 
+//logic to modify comment, not yet implemented
 exports.updateComment = (req, res, next) => {
     const commentObject = { ...req.body };
     Comment.update( commentObject,  { where: { id: req.params.id } })

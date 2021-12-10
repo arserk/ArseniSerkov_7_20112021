@@ -5,6 +5,7 @@ const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 const postsCtrl = require('../controllers/posts');
 
+//add auth middleware to prevent not logged users to see posts
 router.post('/', auth, multer, postsCtrl.createPost);
 router.get('/', postsCtrl.getNextPosts);
 router.get('/:id', postsCtrl.getOnePost);

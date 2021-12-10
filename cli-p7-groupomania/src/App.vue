@@ -69,18 +69,6 @@ export default {
     }
 }
 
-
-/*
-.container {
-  max-width: 500px;
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  border: 1px solid steelblue;
-  padding: 30px;
-  border-radius: 5px;
-}
-*/
 .btn {
   display: inline-block;
   background: #000;
@@ -94,7 +82,7 @@ export default {
   font-size: 15px;
   font-family: inherit;
     &:active {
-      filter: invert(1);
+      transform: scale(0.8);
     }
 }
 .btn-block {

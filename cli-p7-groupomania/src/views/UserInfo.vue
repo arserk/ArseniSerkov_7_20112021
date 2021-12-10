@@ -35,7 +35,7 @@ export default {
             return data
         },
         async deleteUser(id) {
-            console.log("user to delete id=", id);
+            //console.log("user to delete id=", id);
             if (confirm("Are you sur you want to delete your account ?")) {
                 const res = await this.$http.delete(`api/user/${id}`)
                 const data = await res.data;
@@ -51,7 +51,6 @@ export default {
     },
     async created() {
         this.userInfo = await this.getUserInfo();
-        //console.log();
     }
 }
 </script>

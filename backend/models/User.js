@@ -24,7 +24,7 @@ const User = db.define('user', {
         defaultValue: false
     }
 }, {
-    tableName: 'users'
+    tableName: 'users' //change if you do not want to enforce this model name
 });
 
 module.exports = User;

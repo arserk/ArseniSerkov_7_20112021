@@ -4,8 +4,6 @@ const fs = require('fs');
 
 exports.createPost = (req, res, next) => {
     const postObject = JSON.parse(req.body.post);
-    //const postObject = req.body;
-    //console.log(req);
     if (!req.file) {
         Post.create({
             ...postObject
@@ -35,6 +33,7 @@ exports.getAllPosts = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 
+//only display last 10, logic to update
 exports.getNextPosts = (req, res, next) => {
     Post.findAll({ limit: 10, order: [['createdAt', 'DESC']]})
     .then(posts => res.status(200).json(posts))
@@ -61,6 +60,7 @@ exports.deletePost = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+//modify a post, not yet implemented
 exports.updatePost = (req, res, next) => {
     const postObject = req.file ?
     {
@@ -85,6 +85,7 @@ exports.updatePost = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 
+//logic for posts ratings, not yet implemented
 exports.ratePost = (req, res, next) => {
     const userId = req.body.userId;
     if (req.body.like === 0) {

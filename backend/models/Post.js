@@ -37,7 +37,7 @@ const Post = db.define('post', {
         }
     }
 }, {
-    tableName: 'posts'
+    tableName: 'posts' //change if you do not want to enforce this model name
 });
 
 module.exports = Post;
